@@ -1,6 +1,5 @@
-package pt.ipp.isep.esinf.domain;
+package pt.ipp.isep.esinf.domain.trip;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 public class TripEntry implements Comparable<TripEntry> {
@@ -49,6 +48,6 @@ public class TripEntry implements Comparable<TripEntry> {
 
     @Override
     public int compareTo(TripEntry o) {
-        return Long.compare(Long.getLong(coordenates.getTimeStamp()), Long.getLong(o.coordenates.getTimeStamp()));
+        return Long.compare(Long.parseLong(coordenates.getTimeStamp()), Long.parseLong(o.coordenates.getTimeStamp()));
     }
 }

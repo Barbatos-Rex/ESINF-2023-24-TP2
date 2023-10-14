@@ -1,4 +1,4 @@
-package pt.ipp.isep.esinf.domain;
+package pt.ipp.isep.esinf.domain.trip;
 
 import java.util.Objects;
 

@@ -1,4 +1,6 @@
-package pt.ipp.isep.esinf.struct;
+package pt.ipp.isep.esinf.struct.simple;
+
+import pt.ipp.isep.esinf.struct.BST;
 
 import java.util.*;
 

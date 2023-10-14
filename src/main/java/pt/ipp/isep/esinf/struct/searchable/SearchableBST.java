@@ -1,6 +1,9 @@
-package pt.ipp.isep.esinf.struct;
+package pt.ipp.isep.esinf.struct.searchable;
+
+import pt.ipp.isep.esinf.struct.BST;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class SearchableBST<N, I extends Comparable<I>>
         implements BST<I>, Searchable<N, I> {
@@ -84,13 +87,12 @@ public class SearchableBST<N, I extends Comparable<I>>
         return height(root);
     }
 
-    private int height(SearchableNode<N,I> elem) {
+    private int height(SearchableNode<N, I> elem) {
         if (elem == null) {
             return 0;
         }
         return Math.max(height(elem.getLeft()), height(elem.getRight())) + 1;
     }
-
 
 
     @Override
@@ -100,7 +102,7 @@ public class SearchableBST<N, I extends Comparable<I>>
         return list;
     }
 
-    private void inOrder(Collection<I> collection, SearchableNode<N,I> root) {
+    private void inOrder(Collection<I> collection, SearchableNode<N, I> root) {
         if (root == null) {
             return;
         }
@@ -117,7 +119,7 @@ public class SearchableBST<N, I extends Comparable<I>>
         return list;
     }
 
-    private void preOrder(Collection<I> collection, SearchableNode<N,I> root) {
+    private void preOrder(Collection<I> collection, SearchableNode<N, I> root) {
         if (root == null) {
             return;
         }
@@ -133,7 +135,7 @@ public class SearchableBST<N, I extends Comparable<I>>
         return list;
     }
 
-    private void posOrder(Collection<I> collection, SearchableNode<N,I> root) {
+    private void posOrder(Collection<I> collection, SearchableNode<N, I> root) {
         if (root == null) {
             return;
         }
@@ -162,7 +164,7 @@ public class SearchableBST<N, I extends Comparable<I>>
     }
 
 
-    private void nodesByLevels(Map<Integer, Set<I>> result, SearchableNode<N,I> node, int level) {
+    private void nodesByLevels(Map<Integer, Set<I>> result, SearchableNode<N, I> node, int level) {
         if (node == null) {
             return;
         }
@@ -176,23 +178,26 @@ public class SearchableBST<N, I extends Comparable<I>>
 
     @Override
     public Optional<N> search(I id) {
-        return search(id,root);
+        return search(id, root);
     }
 
 
-    public void insert(I id, N element){
-        root=insert(new SearchableNode<>(id, element),root);
+    public void insert(I id, N element) {
+        if (root == null) {
+            root = new SearchableNode<>(id, element);
+        }
+        root = insert(new SearchableNode<>(id, element), root);
     }
 
-    private SearchableNode<N,I> insert(SearchableNode<N,I> elem, SearchableNode<N,I> root) {
+    private SearchableNode<N, I> insert(SearchableNode<N, I> elem, SearchableNode<N, I> root) {
         if (root == null) {
             return elem;
         }
         int v = root.compareTo(elem);
         if (v < 0) {
-            root.setRight(insert(root.getRight(), elem));
+            root.setRight(insert(elem, root.getRight()));
         } else if (v > 0) {
-            root.setLeft(insert(root.getLeft(), elem));
+            root.setLeft(insert(elem, root.getLeft()));
         } else {
             root.setElement(elem.getElement());
         }
@@ -204,7 +209,7 @@ public class SearchableBST<N, I extends Comparable<I>>
     }
 
 
-    private SearchableNode<N,I> delete(SearchableNode<N,I> element, SearchableNode<N,I> root) {
+    private SearchableNode<N, I> delete(SearchableNode<N, I> element, SearchableNode<N, I> root) {
         if (root == null) {
             return root;
         }
@@ -227,11 +232,11 @@ public class SearchableBST<N, I extends Comparable<I>>
         return root;
     }
 
-    private SearchableNode<N,I> inOrderSuccessor(SearchableNode<N,I> root) {
+    private SearchableNode<N, I> inOrderSuccessor(SearchableNode<N, I> root) {
         if (root == null) {
             return null;
         }
-        SearchableNode<N,I> v = inOrderSuccessor(root.getLeft());
+        SearchableNode<N, I> v = inOrderSuccessor(root.getLeft());
         if (v == null) {
             return root;
         }
@@ -239,21 +244,38 @@ public class SearchableBST<N, I extends Comparable<I>>
     }
 
 
-
-    private Optional<N> search(I id, SearchableNode<N,I> root){
-        if (root==null){
+    private Optional<N> search(I id, SearchableNode<N, I> root) {
+        if (root == null) {
             return Optional.empty();
         }
 
-        if (id.equals(root.getIndexKey())){
+        if (id.equals(root.getIndexKey())) {
             return Optional.of(root.getElement());
         }
 
         int v = id.compareTo(root.getIndexKey());
 
-        if (v < 0){
-            return search(id,root.getLeft());
+        if (v < 0) {
+            return search(id, root.getLeft());
         }
-        return search(id,root.getRight());
+        return search(id, root.getRight());
     }
+
+    public Set<N> findAllThatMatch(Predicate<N> predicate) {
+        Set<N> result = new HashSet<>();
+        findAllThatMatch(predicate, result, root);
+        return result;
+    }
+
+    private void findAllThatMatch(Predicate<N> predicate, Set<N> set, SearchableNode<N, I> node) {
+        if (node == null) {
+            return;
+        }
+        if (predicate.test(node.element)) {
+            set.add(node.element);
+        }
+        findAllThatMatch(predicate, set, node.getLeft());
+        findAllThatMatch(predicate, set, node.getRight());
+    }
+
 }

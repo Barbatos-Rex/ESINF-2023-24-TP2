@@ -1,10 +1,10 @@
-package pt.ipp.isep.esinf.domain;
+package pt.ipp.isep.esinf.domain.trip;
 
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Trip implements Entity{
+public class Trip {
     private TripId id;
 
     private Set<TripEntry> entries;
@@ -17,6 +17,14 @@ public class Trip implements Entity{
     public Trip(TripId id) {
         this.id = id;
         entries = new TreeSet<>();
+    }
+
+    public TripId getId() {
+        return id;
+    }
+
+    public Set<TripEntry> getEntries() {
+        return entries;
     }
 
     public void addEntry(TripEntry entry) {
@@ -37,12 +45,7 @@ public class Trip implements Entity{
     }
 
     @Override
-    public String getIndexKey() {
-        return id.getId();
-    }
-
-    @Override
-    public EntityType type() {
-        return EntityType.TRIP;
+    public String toString() {
+        return id.toString();
     }
 }

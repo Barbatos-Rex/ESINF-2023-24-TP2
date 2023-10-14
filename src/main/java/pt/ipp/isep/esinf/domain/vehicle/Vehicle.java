@@ -1,8 +1,8 @@
-package pt.ipp.isep.esinf.domain;
+package pt.ipp.isep.esinf.domain.vehicle;
 
 import java.util.Objects;
 
-public class Vehicle implements Entity {
+public class Vehicle {
     private String id;
     private String type;
     private String vClass;
@@ -65,12 +65,15 @@ public class Vehicle implements Entity {
     }
 
     @Override
-    public String getIndexKey() {
-        return id;
-    }
-
-    @Override
-    public EntityType type() {
-        return EntityType.VEHICLE;
+    public String toString() {
+        return "Vehicle{" +
+                "id='" + id + '\'' +
+                ", type='" + type + '\'' +
+                ", vClass='" + vClass + '\'' +
+                ", engine='" + engine + '\'' +
+                ", tranmission='" + tranmission + '\'' +
+                ", wheels='" + wheels + '\'' +
+                ", weight='" + weight + '\'' +
+                '}';
     }
 }
