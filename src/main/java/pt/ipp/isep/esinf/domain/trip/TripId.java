@@ -3,21 +3,21 @@ package pt.ipp.isep.esinf.domain.trip;
 import java.util.Objects;
 
 public class TripId {
-    private String id;
-    private String vehicle;
+    private int id;
+    private int vehicle;
     private String dayNum;
 
-    public TripId(String id, String vehicle, String dayNum) {
+    public TripId(int id, int vehicle, String dayNum) {
         this.id = id;
         this.vehicle = vehicle;
         this.dayNum = dayNum;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public String getVehicle() {
+    public int getVehicle() {
         return vehicle;
     }
 

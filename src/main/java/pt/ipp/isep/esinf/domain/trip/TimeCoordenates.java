@@ -1,17 +1,19 @@
 package pt.ipp.isep.esinf.domain.trip;
 
+import java.util.Comparator;
 import java.util.Objects;
 
-public class TimeCoordenates {
+public class TimeCoordenates implements Comparator<TimeCoordenates> {
+    private static final double R = 6371e3;
     private String timeStamp;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
 
 
     public TimeCoordenates(String timeStamp, String latitude, String longitude) {
         this.timeStamp = timeStamp;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.latitude = Double.parseDouble(latitude);
+        this.longitude = Double.parseDouble(longitude);
     }
 
     public String getTimeStamp() {
@@ -19,11 +21,16 @@ public class TimeCoordenates {
     }
 
     public String getLatitude() {
-        return latitude;
+        return Double.toString(latitude);
     }
 
     public String getLongitude() {
-        return longitude;
+        return Double.toString(longitude);
+    }
+
+    @Override
+    public int compare(TimeCoordenates o1, TimeCoordenates o2) {
+        return Double.compare(o1.distance(o2), 0);
     }
 
     @Override
@@ -41,10 +48,21 @@ public class TimeCoordenates {
 
     @Override
     public String toString() {
-        return "timeCoordenates: {" +
-                "timeStamp='" + timeStamp + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n").append("Latitude: ").append(latitude).append("\n").append("Longitude: ")
+                .append(longitude).append("\n").append("Instant [ms]: ").append(timeStamp).append("\n");
+        return sb.toString();
+    }
+
+    public double distance(TimeCoordenates other) {
+        double phi1 = latitude * Math.PI / 180;
+        double phi2 = other.latitude * Math.PI / 180;
+        double deltaPhi = (other.latitude - latitude) * Math.PI / 180;
+        double deltaLambda = (other.longitude - longitude) * Math.PI / 180;
+        double a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+                Math.cos(phi1) * Math.cos(phi2) *
+                        Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
     }
 }

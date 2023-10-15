@@ -3,7 +3,7 @@ package pt.ipp.isep.esinf.domain.vehicle;
 import java.util.Objects;
 
 public class Vehicle {
-    private String id;
+    private int id;
     private String type;
     private String vClass;
     private String engine;
@@ -13,7 +13,7 @@ public class Vehicle {
     private String weight;
 
 
-    public Vehicle(String id, String type, String vClass, String engine, String tranmission, String wheels, String weight) {
+    public Vehicle(int id, String type, String vClass, String engine, String tranmission, String wheels, String weight) {
         this.id = id;
         this.type = type;
         this.vClass = vClass;
@@ -23,7 +23,7 @@ public class Vehicle {
         this.weight = weight;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

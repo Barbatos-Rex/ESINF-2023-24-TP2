@@ -1,4 +1,4 @@
-package pt.ipp.isep.esinf.auxiliary;
+package pt.ipp.isep.esinf.struct.auxiliary;
 
 import pt.ipp.isep.esinf.domain.trip.Trip;
 import pt.ipp.isep.esinf.domain.vehicle.Vehicle;

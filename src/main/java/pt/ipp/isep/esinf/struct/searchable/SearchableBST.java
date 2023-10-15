@@ -6,7 +6,24 @@ import java.util.*;
 import java.util.function.Predicate;
 
 public class SearchableBST<N, I extends Comparable<I>>
-        implements BST<I>, Searchable<N, I> {
+        implements BST<I>, Searchable<N, I>, Iterable<N> {
+
+    @Override
+    public Iterator<N> iterator() {
+        List<N> result = new ArrayList<>();
+        inOrderFiller(result, root);
+        return result.iterator();
+    }
+
+
+    public void inOrderFiller(List<N> result, SearchableNode<N, I> root) {
+        if (root == null) {
+            return;
+        }
+        inOrderFiller(result, root.getLeft());
+        result.add(root.element);
+        inOrderFiller(result, root.getRight());
+    }
 
     static class SearchableNode<N, I extends Comparable<I>> implements Comparable<SearchableNode<N, I>> {
 
@@ -70,6 +87,10 @@ public class SearchableBST<N, I extends Comparable<I>>
     }
 
     public SearchableBST() {
+    }
+
+    protected SearchableNode<N, I> getRootNode() {
+        return root;
     }
 
     private SearchableNode<N, I> root;
