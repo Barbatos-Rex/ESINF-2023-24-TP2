@@ -5,6 +5,7 @@ import pt.ipp.isep.esinf.domain.vehicle.Vehicle;
 import pt.ipp.isep.esinf.struct.auxiliary.TreeCluster;
 import pt.ipp.isep.esinf.struct.searchable.SearchableTripBST;
 import pt.ipp.isep.esinf.struct.searchable.SearchableVehicleBST;
+import pt.ipp.isep.esinf.struct.simple.TwoDTree;
 
 import java.io.InputStream;
 import java.util.*;

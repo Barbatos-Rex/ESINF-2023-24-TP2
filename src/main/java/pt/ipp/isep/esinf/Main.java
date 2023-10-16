@@ -9,6 +9,7 @@ import pt.ipp.isep.esinf.struct.auxiliary.TreeCluster;
 import pt.ipp.isep.esinf.struct.auxiliary.TripStartEnd;
 import pt.ipp.isep.esinf.struct.auxiliary.TripVehicle;
 import pt.ipp.isep.esinf.struct.auxiliary.VehicleTrips;
+import pt.ipp.isep.esinf.struct.simple.TwoDTree;
 
 import java.util.Map;
 import java.util.Optional;
