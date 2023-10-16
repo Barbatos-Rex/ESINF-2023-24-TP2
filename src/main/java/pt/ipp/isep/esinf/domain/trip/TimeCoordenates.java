@@ -9,6 +9,9 @@ public class TimeCoordenates implements Comparator<TimeCoordenates> {
     private double latitude;
     private double longitude;
 
+    public static TimeCoordenates genCoordWithoutTime(String latitude, String longitude){
+        return new TimeCoordenates("0",latitude,longitude);
+    }
 
     public TimeCoordenates(String timeStamp, String latitude, String longitude) {
         this.timeStamp = timeStamp;

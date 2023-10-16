@@ -216,6 +216,21 @@ public class Trip implements Comparable<Trip> {
         return entries.first().getCoordenates().distance(entries.last().getCoordenates());
     }
 
+    public double tripRealDistance() {
+        double distance = 0;
+        TimeCoordenates last = null;
+        for (TripEntry entry : entries) {
+            if (last == null) {
+                last = entry.getCoordenates();
+                continue;
+            }
+
+            distance += last.distance(entry.getCoordenates());
+            last = entry.getCoordenates();
+        }
+        return distance;
+    }
+
 
     public static class TripDistanceComparator implements Comparator<Trip> {
 
@@ -224,4 +239,15 @@ public class Trip implements Comparable<Trip> {
             return Double.compare(o1.tripDistance(), o2.tripDistance());
         }
     }
+
+
+    public static class TripRealDistanceComparator implements Comparator<Trip>{
+
+        @Override
+        public int compare(Trip o1, Trip o2) {
+            return -Double.compare(o1.tripRealDistance(),o2.tripRealDistance());
+        }
+    }
+
+
 }

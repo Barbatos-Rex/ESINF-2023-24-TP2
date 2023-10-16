@@ -1,30 +1,25 @@
 package pt.ipp.isep.esinf.struct.simple;
 
-import pt.ipp.isep.esinf.domain.trip.TimeCoordenates;
 import pt.ipp.isep.esinf.struct.auxiliary.Pair;
 
-import java.util.Objects;
+public class TwoDTree<E> {
 
-public class TwoDTree {
+    public static class TwoDNode<E> {
 
-    private class TwoDNode {
         private double x;
         private double y;
-        private TwoDNode left;
-        private TwoDNode right;
+        private TwoDNode<E> left;
 
-        public TwoDNode(double x, double y, TwoDNode left, TwoDNode right) {
-            this.x = x;
-            this.y = y;
+        private TwoDNode<E> right;
+        private E element;
+
+        public TwoDNode(double value1, double value2, TwoDNode<E> left, TwoDNode<E> right, E element) {
+            this.x = value1;
+            this.y = value2;
             this.left = left;
             this.right = right;
+            this.element = element;
         }
-
-        public TwoDNode(double x, double y) {
-            this.x = x;
-            this.y = y;
-        }
-
 
         public double getX() {
             return x;
@@ -34,57 +29,60 @@ public class TwoDTree {
             return y;
         }
 
-        public TwoDNode getLeft() {
+        public TwoDNode(double value1, double value2, E element) {
+            this.x = value1;
+            this.y = value2;
+            left = null;
+            right = null;
+            this.element = element;
+
+        }
+
+        public TwoDNode<E> getLeft() {
             return left;
         }
 
-        public TwoDNode getRight() {
+        public TwoDNode<E> getRight() {
             return right;
         }
 
-        public void setLeft(TwoDNode left) {
+        public void setLeft(TwoDNode<E> left) {
             this.left = left;
         }
 
-        public void setRight(TwoDNode right) {
+        public void setRight(TwoDNode<E> right) {
             this.right = right;
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            TwoDNode twoDNode = (TwoDNode) o;
-            return Double.compare(x, twoDNode.x) == 0 && Double.compare(y, twoDNode.y) == 0;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y);
+        public E getElement() {
+            return element;
         }
     }
 
+    protected TwoDNode<E> getRoot() {
+        return root;
+    }
 
-    private TwoDNode root;
+    private TwoDNode<E> root;
 
 
     public TwoDTree() {
         root = null;
     }
 
-    public TwoDTree(TwoDNode root) {
+    public TwoDTree(TwoDNode<E> root) {
         this.root = root;
     }
 
-    public void insert(double x, double y) {
-        root = insert(new TwoDNode(x, y), root, true);
+    public void insert(double x, double y, E element) {
+        root = insert(new TwoDNode<>(x, y, element), root, true);
     }
 
     public Pair<Double, Double> root() {
         return new Pair<>(root.x, root.y);
     }
 
-    private TwoDNode insert(TwoDNode node, TwoDNode root, boolean isX) {
+    private TwoDNode<E> insert(TwoDNode<E> node, TwoDNode<E> root, boolean isX) {
         if (root == null) {
             return node;
         }
@@ -111,9 +109,7 @@ public class TwoDTree {
     }
 
 
-//    public Pair<Pair<Double, Double>, Pair<Double, Double>> obtainClosestCoordenatesToOriginDestination(Pair<> start, TimeCoordenates end){
-//
-//    }
+
 
 
 }

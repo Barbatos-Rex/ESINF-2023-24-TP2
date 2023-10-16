@@ -1,7 +1,7 @@
 package pt.ipp.isep.esinf;
 
+import pt.ipp.isep.esinf.domain.trip.TimeCoordenates;
 import pt.ipp.isep.esinf.domain.trip.Trip;
-import pt.ipp.isep.esinf.domain.vehicle.Vehicle;
 import pt.ipp.isep.esinf.functionality.Search;
 import pt.ipp.isep.esinf.io.Importer;
 import pt.ipp.isep.esinf.struct.MaxMinAverageOfTripByType;
@@ -9,7 +9,6 @@ import pt.ipp.isep.esinf.struct.auxiliary.TreeCluster;
 import pt.ipp.isep.esinf.struct.auxiliary.TripStartEnd;
 import pt.ipp.isep.esinf.struct.auxiliary.TripVehicle;
 import pt.ipp.isep.esinf.struct.auxiliary.VehicleTrips;
-import pt.ipp.isep.esinf.struct.simple.TwoDTree;
 
 import java.util.Map;
 import java.util.Optional;
@@ -46,23 +45,31 @@ public class Main {
         }
 
 
-        Map<Integer,Trip> ex4 = result.getTripTree().findLongestTripByVehicleIds(Set.of(130,131,132,550,554));
+        Map<Integer, Trip> ex4 = result.getTripTree().findLongestTripByVehicleIds(Set.of(130, 131, 132, 550, 554));
         System.out.println();
         for (Map.Entry<Integer, Trip> integerTripEntry : ex4.entrySet()) {
             System.out.println();
-            System.out.println("VehicleId: "+integerTripEntry.getKey());
-            System.out.println("Longest Trip: "+integerTripEntry.getValue().getId().getId());
-            System.out.println("Trip Distance: "+String.format("%.3f",integerTripEntry.getValue().tripDistance()) + " km");
+            System.out.println("VehicleId: " + integerTripEntry.getKey());
+            System.out.println("Longest Trip: " + integerTripEntry.getValue().getId().getId());
+            System.out.println("Trip Distance: " + String.format("%.3f", integerTripEntry.getValue().tripDistance()) + " km");
             System.out.println();
             System.out.println("//////////////////////////////////////////////////////////////////////////////");
         }
 
 
+        Set<Trip> ex6 = result.getTripTree().generateCoordenate2DTree().topNLongestTripsBetweenInArea(
+                TimeCoordenates.genCoordWithoutTime("42.24882", "-83.76743139"), TimeCoordenates.genCoordWithoutTime("43.25883", "-84.76743125"), 10);
 
 
-
-
-
+        int count=1;
+        for (Trip trip : ex6) {
+            System.out.println("("+count+"º)Trip: ");
+            System.out.println(trip);
+            System.out.print("\nTraveld Distance: ");
+            System.out.println(trip.tripRealDistance());
+            System.out.println("#####################################################################################");
+            count++;
+        }
 
 
     }

@@ -1,9 +1,11 @@
 package pt.ipp.isep.esinf.struct.searchable;
 
+import pt.ipp.isep.esinf.domain.trip.TimeCoordenates;
 import pt.ipp.isep.esinf.domain.trip.Trip;
 import pt.ipp.isep.esinf.domain.vehicle.Vehicle;
 import pt.ipp.isep.esinf.struct.MaxMinAverageOfTripByType;
 import pt.ipp.isep.esinf.struct.auxiliary.TripStartEnd;
+import pt.ipp.isep.esinf.struct.simple.Trip2DTree;
 
 import java.util.*;
 
@@ -123,6 +125,25 @@ public class SearchableTripBST extends SearchableBST<Trip, Integer> {
         result.get(root.getElement().getId().getVehicle()).add(root.getElement());
         findAllTripsByVehicle(result, root.getLeft());
         findAllTripsByVehicle(result, root.getRight());
+    }
+
+    public Trip2DTree generateCoordenate2DTree() {
+        Trip2DTree result = new Trip2DTree();
+        generateCoordenate2DTree(result, getRootNode());
+        return result;
+    }
+
+
+    private void generateCoordenate2DTree(Trip2DTree tree, SearchableNode<Trip, Integer> root) {
+        if (root == null) {
+            return;
+        }
+        TimeCoordenates start = root.getElement().getEntries().getFirst().getCoordenates();
+        TimeCoordenates end = root.getElement().getEntries().getLast().getCoordenates();
+        tree.insert(Double.parseDouble(start.getLatitude()), Double.parseDouble(start.getLongitude()), root.getElement());
+        tree.insert(Double.parseDouble(end.getLatitude()), Double.parseDouble(end.getLongitude()), root.getElement());
+        generateCoordenate2DTree(tree, root.getLeft());
+        generateCoordenate2DTree(tree, root.getRight());
     }
 
 }
