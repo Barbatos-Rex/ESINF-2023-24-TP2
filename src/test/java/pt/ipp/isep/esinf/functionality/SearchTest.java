@@ -51,6 +51,16 @@ class SearchTest {
     }
 
     @Test
+    void findTripAndVehicleInexistentId() {
+        assertTrue(search.findVehicleAndTripsById(100000).isEmpty());
+    }
+
+    @Test
+    void findVehicleAndTripsInexistetId() {
+        assertTrue(search.findTripAndVehicle(-10).isEmpty());
+    }
+
+    @Test
     void findTripAndVehicleResultIsPresentTest() {
         List<Integer> ids = TestUtils.readTripsIds();
         for (Integer id : ids) {
