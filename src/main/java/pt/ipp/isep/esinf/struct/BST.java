@@ -78,4 +78,7 @@ public interface BST<N extends Comparable<N>>  {
     void remove(N elem);
 
     Map<Integer,Set<N>> nodesByLevel();
+
+    int size();
+
 }

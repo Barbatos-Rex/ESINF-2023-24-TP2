@@ -12,7 +12,10 @@ import java.util.*;
 
 public class Importer {
 
-
+    /**
+     * Complexity: O(t)+2*O(v), where t is the ammount of trips and v the ammount of vehicles in the respective files
+     * @return The cluster of trees that represent the data on the three files
+     */
     public TreeCluster importData() {
         InputStream vedStaticIce = getClass().getClassLoader().getResourceAsStream("VED_Static_Data_ICE&HEV.csv");
         InputStream vedStaticEv = getClass().getClassLoader().getResourceAsStream("VED_Static_Data_PHEV&EV.csv");
@@ -26,6 +29,11 @@ public class Importer {
         return new TreeCluster(vehicleTree, tripTree);
     }
 
+    /**
+     * Complexity: O(t)
+     * @param result The result tree to be populated
+     * @param stream The Stream that represents the file to fecth all the trips data
+     */
     private void importTrip(SearchableTripBST result, InputStream stream) {
         try (Scanner sc = new Scanner(stream)) {
             sc.nextLine();
@@ -50,6 +58,11 @@ public class Importer {
         }
     }
 
+    /**
+     * Complexity: O(v)
+     * @param tree The result tree to be populated
+     * @param stream The Stream that represents the file to fecth all the vehicles data
+     */
     private void importVehicles(SearchableVehicleBST tree, InputStream stream) {
         List<Vehicle> vs = new ArrayList<>();
         try (Scanner sc = new Scanner(stream)) {

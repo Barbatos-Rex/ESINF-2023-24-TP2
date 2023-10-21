@@ -1,6 +1,7 @@
 package pt.ipp.isep.esinf.struct.simple;
 
 import pt.ipp.isep.esinf.struct.BST;
+import pt.ipp.isep.esinf.struct.searchable.SearchableBST;
 
 import java.util.*;
 
@@ -142,6 +143,18 @@ public class SimpleBST<N extends Comparable<N>> implements BST<N> {
         Map<Integer, Set<N>> result = new HashMap<>();
         nodesByLevels(result, root, 0);
         return result;
+    }
+
+    @Override
+    public int size() {
+        return size(root);
+    }
+
+    private int size(BST.Node<N> root) {
+        if (root == null) {
+            return 0;
+        }
+        return size(root.getLeft()) + size(root.getRight()) + 1;
     }
 
 

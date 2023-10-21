@@ -18,6 +18,7 @@ public class MaxMinAverageOfTripByType {
         this.end = end;
     }
 
+    //O(1)
     public void addEntry(Trip trip, String vehicleType) {
         if (!trips.containsKey(vehicleType)) {
             trips.put(vehicleType, new MaxMinAverageOfTripEntry(vehicleType));

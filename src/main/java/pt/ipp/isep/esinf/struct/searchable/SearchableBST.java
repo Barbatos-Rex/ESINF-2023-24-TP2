@@ -184,6 +184,18 @@ public class SearchableBST<N, I extends Comparable<I>>
         return result;
     }
 
+    @Override
+    public int size() {
+        return size(root);
+    }
+
+    private int size(SearchableNode<N, I> root) {
+        if (root == null) {
+            return 0;
+        }
+        return size(root.getLeft()) + size(root.getRight()) + 1;
+    }
+
 
     private void nodesByLevels(Map<Integer, Set<I>> result, SearchableNode<N, I> node, int level) {
         if (node == null) {

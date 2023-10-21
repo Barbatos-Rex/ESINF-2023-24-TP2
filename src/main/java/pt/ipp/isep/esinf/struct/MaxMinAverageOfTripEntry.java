@@ -107,10 +107,10 @@ public class MaxMinAverageOfTripEntry {
                 oatAvg = -1;
             }
         }
-        upToDate=true;
+        upToDate = true;
     }
 
-
+    //O(1)
     public void addTrip(Trip trip) {
         upToDate = !trips.add(trip);
     }
