@@ -3,11 +3,11 @@ package pt.ipp.isep.esinf.domain.trip;
 import java.util.Objects;
 
 public class FuelTrimBank {
-    private String shortFuelTrimBank1;
-    private String shortFuelTrimBank2;
+    private final String shortFuelTrimBank1;
+    private final String shortFuelTrimBank2;
 
-    private String longFuelTrimBank1;
-    private String longFuelTrimBank2;
+    private final String longFuelTrimBank1;
+    private final String longFuelTrimBank2;
 
     public FuelTrimBank(String shortFuelTrimBank1, String shortFuelTrimBank2, String longFuelTrimBank1, String longFuelTrimBank2) {
         this.shortFuelTrimBank1 = shortFuelTrimBank1;

@@ -3,12 +3,12 @@ package pt.ipp.isep.esinf.domain.trip;
 import java.util.Objects;
 
 public class TripEntry implements Comparable<TripEntry> {
-    private TimeCoordenates coordenates;
+    private final TimeCoordenates coordenates;
 
-    private TripFuelExpendures tripFuelExpendures;
-    private BatteryUsage batteryUsage;
+    private final TripFuelExpendures tripFuelExpendures;
+    private final BatteryUsage batteryUsage;
 
-    private FuelTrimBank fuelBank;
+    private final FuelTrimBank fuelBank;
 
     public TripEntry(TimeCoordenates coordenates, TripFuelExpendures tripFuelExpendures, BatteryUsage batteryUsage, FuelTrimBank fuelBank) {
         this.coordenates = coordenates;

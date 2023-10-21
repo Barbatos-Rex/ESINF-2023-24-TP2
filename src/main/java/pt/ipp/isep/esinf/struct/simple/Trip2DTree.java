@@ -11,64 +11,10 @@ import java.util.TreeSet;
 public class Trip2DTree extends TwoDTree<Trip> {
 
 
-    private class ClosestToStartAndEndComparator implements Comparator<Trip> {
-
-
-        private class DebugEntry {
-            private Trip trip;
-            private double val;
-
-            public DebugEntry(Trip trip, double val) {
-                this.trip = trip;
-                this.val = val;
-            }
-
-            @Override
-            public String toString() {
-                return "DebugEntry{" +
-                        "trip=" + trip.getId() +
-                        ", val=" + val +
-                        '}';
-            }
-        }
-
-        private TimeCoordenates start;
-        private TimeCoordenates end;
-
-        private Set<DebugEntry> debugMap = new TreeSet<>(new Comparator<DebugEntry>() {
-            @Override
-            public int compare(DebugEntry o1, DebugEntry o2) {
-                return Double.compare(o1.val, o2.val);
-            }
-        });
-
-        public ClosestToStartAndEndComparator(TimeCoordenates start, TimeCoordenates end) {
-            this.start = start;
-            this.end = end;
-        }
-
-
-        private double totalDistance(Trip trip) {
-            double d = start.distance(trip.getEntries().first().getCoordenates()) + end.distance(trip.getEntries().last().getCoordenates());
-            if (Boolean.parseBoolean(System.getProperty("Debug", "false"))) {
-                debugMap.add(new DebugEntry(trip, d));
-            }
-            return d;
-        }
-
-        @Override
-        public int compare(Trip o1, Trip o2) {
-            return Double.compare(totalDistance(o1), totalDistance(o2));
-        }
-
-        public Set<DebugEntry> getDebugMap() {
-            return debugMap;
-        }
-    }
-
     /**
      * Complexity: O(1) + O(n) + O(1) + O(n) * O(log(n)) = O(nlog(n))
      * Complexity in debug mode: O(nlog^2(n))
+     *
      * @param start
      * @param end
      * @return
@@ -145,6 +91,59 @@ public class Trip2DTree extends TwoDTree<Trip> {
         double y1 = Math.min(Double.parseDouble(start.getLongitude()), Double.parseDouble(end.getLongitude()));
         double y2 = Math.max(Double.parseDouble(start.getLongitude()), Double.parseDouble(end.getLongitude()));
         return x >= x1 && x <= x2 && y >= y1 && y <= y2;
+    }
+
+    private class ClosestToStartAndEndComparator implements Comparator<Trip> {
+
+
+        private final TimeCoordenates start;
+        private final TimeCoordenates end;
+        private final Set<DebugEntry> debugMap = new TreeSet<>(new Comparator<DebugEntry>() {
+            @Override
+            public int compare(DebugEntry o1, DebugEntry o2) {
+                return Double.compare(o1.val, o2.val);
+            }
+        });
+
+        public ClosestToStartAndEndComparator(TimeCoordenates start, TimeCoordenates end) {
+            this.start = start;
+            this.end = end;
+        }
+
+        private double totalDistance(Trip trip) {
+            double d = start.distance(trip.getEntries().first().getCoordenates()) + end.distance(trip.getEntries().last().getCoordenates());
+            if (Boolean.parseBoolean(System.getProperty("Debug", "false"))) {
+                debugMap.add(new DebugEntry(trip, d));
+            }
+            return d;
+        }
+
+        @Override
+        public int compare(Trip o1, Trip o2) {
+            return Double.compare(totalDistance(o1), totalDistance(o2));
+        }
+
+        public Set<DebugEntry> getDebugMap() {
+            return debugMap;
+        }
+
+        private class DebugEntry {
+            private final Trip trip;
+            private final double val;
+
+            public DebugEntry(Trip trip, double val) {
+                this.trip = trip;
+                this.val = val;
+            }
+
+            @Override
+            public String toString() {
+                return "DebugEntry{" +
+                        "trip=" + trip.getId() +
+                        ", val=" + val +
+                        '}';
+            }
+        }
     }
 
 

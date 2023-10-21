@@ -7,8 +7,8 @@ import java.util.Set;
 
 public class VehicleTrips {
 
-    private Vehicle vehicle;
-    private Set<Trip> trips;
+    private final Vehicle vehicle;
+    private final Set<Trip> trips;
 
     public VehicleTrips(Vehicle vehicle, Set<Trip> trips) {
         this.vehicle = vehicle;

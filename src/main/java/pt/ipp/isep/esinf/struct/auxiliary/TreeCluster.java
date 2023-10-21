@@ -1,15 +1,12 @@
 package pt.ipp.isep.esinf.struct.auxiliary;
 
-import pt.ipp.isep.esinf.domain.trip.Trip;
-import pt.ipp.isep.esinf.domain.vehicle.Vehicle;
-import pt.ipp.isep.esinf.struct.searchable.SearchableBST;
 import pt.ipp.isep.esinf.struct.searchable.SearchableTripBST;
 import pt.ipp.isep.esinf.struct.searchable.SearchableVehicleBST;
 
 public class TreeCluster {
-    private SearchableVehicleBST vehicleTree;
+    private final SearchableVehicleBST vehicleTree;
 
-    private SearchableTripBST tripTree;
+    private final SearchableTripBST tripTree;
 
     public TreeCluster(SearchableVehicleBST vehicleTree, SearchableTripBST tripTree) {
         this.vehicleTree = vehicleTree;

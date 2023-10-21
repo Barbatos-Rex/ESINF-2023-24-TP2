@@ -3,15 +3,15 @@ package pt.ipp.isep.esinf.domain.trip;
 import java.util.Objects;
 
 public class BatteryUsage {
-    private String airPower;
+    private final String airPower;
 
-    private String heatPower;
+    private final String heatPower;
 
-    private String baterryCurrent;
+    private final String baterryCurrent;
 
-    private String batterySoc;
+    private final String batterySoc;
 
-    private String batteryVoltage;
+    private final String batteryVoltage;
 
     public BatteryUsage(String airPower, String heatPower, String baterryCurrent, String batterySoc, String batteryVoltage) {
         this.airPower = airPower;

@@ -5,7 +5,6 @@ import pt.ipp.isep.esinf.domain.vehicle.Vehicle;
 import pt.ipp.isep.esinf.struct.auxiliary.TreeCluster;
 import pt.ipp.isep.esinf.struct.searchable.SearchableTripBST;
 import pt.ipp.isep.esinf.struct.searchable.SearchableVehicleBST;
-import pt.ipp.isep.esinf.struct.simple.TwoDTree;
 
 import java.io.InputStream;
 import java.util.*;
@@ -14,6 +13,7 @@ public class Importer {
 
     /**
      * Complexity: O(t)+2*O(v), where t is the ammount of trips and v the ammount of vehicles in the respective files
+     *
      * @return The cluster of trees that represent the data on the three files
      */
     public TreeCluster importData() {
@@ -31,6 +31,7 @@ public class Importer {
 
     /**
      * Complexity: O(t)
+     *
      * @param result The result tree to be populated
      * @param stream The Stream that represents the file to fecth all the trips data
      */
@@ -60,7 +61,8 @@ public class Importer {
 
     /**
      * Complexity: O(v)
-     * @param tree The result tree to be populated
+     *
+     * @param tree   The result tree to be populated
      * @param stream The Stream that represents the file to fecth all the vehicles data
      */
     private void importVehicles(SearchableVehicleBST tree, InputStream stream) {

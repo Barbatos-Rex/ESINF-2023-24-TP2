@@ -7,10 +7,10 @@ import java.util.Map;
 
 public class MaxMinAverageOfTripByType {
 
-    private double start;
-    private double end;
+    private final double start;
+    private final double end;
 
-    private Map<String, MaxMinAverageOfTripEntry> trips;
+    private final Map<String, MaxMinAverageOfTripEntry> trips;
 
     public MaxMinAverageOfTripByType(double start, double end) {
         this.trips = new HashMap<>();

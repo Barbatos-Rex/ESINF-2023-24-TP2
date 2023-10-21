@@ -1,8 +1,29 @@
 package pt.ipp.isep.esinf.struct;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
-public interface BST<N extends Comparable<N>>  {
+public interface BST<N extends Comparable<N>> {
+
+    Optional<N> root();
+
+    int height();
+
+    Iterable<N> inOrder();
+
+    Iterable<N> preOrder();
+
+    Iterable<N> posOrder();
+
+    void insert(N elem);
+
+    void remove(N elem);
+
+    Map<Integer, Set<N>> nodesByLevel();
+
+    int size();
 
     class Node<N extends Comparable<N>> implements Comparable<Node<N>> {
         private Node<N> left;
@@ -23,20 +44,20 @@ public interface BST<N extends Comparable<N>>  {
             return left;
         }
 
-        public N getElement() {
-            return element;
-        }
-
-        public Node<N> getRight() {
-            return right;
-        }
-
         public void setLeft(Node<N> left) {
             this.left = left;
         }
 
+        public N getElement() {
+            return element;
+        }
+
         public void setElement(N element) {
             this.element = element;
+        }
+
+        public Node<N> getRight() {
+            return right;
         }
 
         public void setRight(Node<N> right) {
@@ -61,24 +82,5 @@ public interface BST<N extends Comparable<N>>  {
             return getElement().compareTo(o.getElement());
         }
     }
-
-
-    Optional<N> root();
-
-    int height();
-
-    Iterable<N> inOrder();
-
-    Iterable<N> preOrder();
-
-    Iterable<N> posOrder();
-
-    void insert(N elem);
-
-    void remove(N elem);
-
-    Map<Integer,Set<N>> nodesByLevel();
-
-    int size();
 
 }

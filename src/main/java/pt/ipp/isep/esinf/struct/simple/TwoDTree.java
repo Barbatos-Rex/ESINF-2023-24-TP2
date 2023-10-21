@@ -4,67 +4,7 @@ import pt.ipp.isep.esinf.struct.auxiliary.Pair;
 
 public class TwoDTree<E> {
 
-    public static class TwoDNode<E> {
-
-        private double x;
-        private double y;
-        private TwoDNode<E> left;
-
-        private TwoDNode<E> right;
-        private E element;
-
-        public TwoDNode(double value1, double value2, TwoDNode<E> left, TwoDNode<E> right, E element) {
-            this.x = value1;
-            this.y = value2;
-            this.left = left;
-            this.right = right;
-            this.element = element;
-        }
-
-        public double getX() {
-            return x;
-        }
-
-        public double getY() {
-            return y;
-        }
-
-        public TwoDNode(double value1, double value2, E element) {
-            this.x = value1;
-            this.y = value2;
-            left = null;
-            right = null;
-            this.element = element;
-
-        }
-
-        public TwoDNode<E> getLeft() {
-            return left;
-        }
-
-        public TwoDNode<E> getRight() {
-            return right;
-        }
-
-        public void setLeft(TwoDNode<E> left) {
-            this.left = left;
-        }
-
-        public void setRight(TwoDNode<E> right) {
-            this.right = right;
-        }
-
-        public E getElement() {
-            return element;
-        }
-    }
-
-    protected TwoDNode<E> getRoot() {
-        return root;
-    }
-
     private TwoDNode<E> root;
-
 
     public TwoDTree() {
         root = null;
@@ -72,6 +12,10 @@ public class TwoDTree<E> {
 
     public TwoDTree(TwoDNode<E> root) {
         this.root = root;
+    }
+
+    protected TwoDNode<E> getRoot() {
+        return root;
     }
 
     public void insert(double x, double y, E element) {
@@ -108,8 +52,60 @@ public class TwoDTree<E> {
         return root;
     }
 
+    public static class TwoDNode<E> {
 
+        private final double x;
+        private final double y;
+        private TwoDNode<E> left;
 
+        private TwoDNode<E> right;
+        private final E element;
+
+        public TwoDNode(double value1, double value2, TwoDNode<E> left, TwoDNode<E> right, E element) {
+            this.x = value1;
+            this.y = value2;
+            this.left = left;
+            this.right = right;
+            this.element = element;
+        }
+
+        public TwoDNode(double value1, double value2, E element) {
+            this.x = value1;
+            this.y = value2;
+            left = null;
+            right = null;
+            this.element = element;
+
+        }
+
+        public double getX() {
+            return x;
+        }
+
+        public double getY() {
+            return y;
+        }
+
+        public TwoDNode<E> getLeft() {
+            return left;
+        }
+
+        public void setLeft(TwoDNode<E> left) {
+            this.left = left;
+        }
+
+        public TwoDNode<E> getRight() {
+            return right;
+        }
+
+        public void setRight(TwoDNode<E> right) {
+            this.right = right;
+        }
+
+        public E getElement() {
+            return element;
+        }
+    }
 
 
 }

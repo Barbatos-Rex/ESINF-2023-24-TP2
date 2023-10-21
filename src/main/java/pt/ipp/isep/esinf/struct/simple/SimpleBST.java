@@ -1,7 +1,6 @@
 package pt.ipp.isep.esinf.struct.simple;
 
 import pt.ipp.isep.esinf.struct.BST;
-import pt.ipp.isep.esinf.struct.searchable.SearchableBST;
 
 import java.util.*;
 

@@ -4,7 +4,7 @@ import pt.ipp.isep.esinf.domain.trip.TimeCoordenates;
 import pt.ipp.isep.esinf.domain.trip.Trip;
 
 public class TripStartEnd {
-    private Trip trip;
+    private final Trip trip;
 
 
     public TripStartEnd(Trip trip) {

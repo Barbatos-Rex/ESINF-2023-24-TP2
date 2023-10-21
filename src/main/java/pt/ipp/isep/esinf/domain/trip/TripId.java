@@ -3,9 +3,9 @@ package pt.ipp.isep.esinf.domain.trip;
 import java.util.Objects;
 
 public class TripId {
-    private int id;
-    private int vehicle;
-    private String dayNum;
+    private final int id;
+    private final int vehicle;
+    private final String dayNum;
 
     public TripId(int id, int vehicle, String dayNum) {
         this.id = id;

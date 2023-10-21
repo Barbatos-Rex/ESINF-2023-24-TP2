@@ -7,8 +7,8 @@ import java.util.Set;
 
 public class MaxMinAverageOfTripEntry {
 
-    private String type;
-    private Set<Trip> trips;
+    private final String type;
+    private final Set<Trip> trips;
 
     private double speedMax;
     private double speedMin;
@@ -117,20 +117,19 @@ public class MaxMinAverageOfTripEntry {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Vehicle Type: ").append(type).append("\n");
-        sb.append("Speed [K/h] ------->").append("\n");
-        sb.append("Maximum: ").append(speedMax).append("\n");
-        sb.append("Minimum: ").append(speedMin).append("\n");
-        sb.append("Average: ").append(speedAvg).append("\n").append("\n");
-        sb.append("Absolute Load [%] ------->").append("\n");
-        sb.append("Maximum: ").append(loadMax).append("\n");
-        sb.append("Minimum: ").append(loadMin).append("\n");
-        sb.append("Average: ").append(loadAvg).append("\n").append("\n");
-        sb.append("OAT [ºC] ------->").append("\n");
-        sb.append("Maximum: ").append(oatMax).append("\n");
-        sb.append("Minimum: ").append(oatMin).append("\n");
-        sb.append("Average: ").append(oatAvg).append("\n").append("\n");
-        return sb.toString();
+        String sb = "Vehicle Type: " + type + "\n" +
+                "Speed [K/h] ------->" + "\n" +
+                "Maximum: " + speedMax + "\n" +
+                "Minimum: " + speedMin + "\n" +
+                "Average: " + speedAvg + "\n" + "\n" +
+                "Absolute Load [%] ------->" + "\n" +
+                "Maximum: " + loadMax + "\n" +
+                "Minimum: " + loadMin + "\n" +
+                "Average: " + loadAvg + "\n" + "\n" +
+                "OAT [ºC] ------->" + "\n" +
+                "Maximum: " + oatMax + "\n" +
+                "Minimum: " + oatMin + "\n" +
+                "Average: " + oatAvg + "\n" + "\n";
+        return sb;
     }
 }

@@ -6,12 +6,11 @@ import pt.ipp.isep.esinf.struct.auxiliary.TreeCluster;
 import pt.ipp.isep.esinf.struct.auxiliary.TripVehicle;
 import pt.ipp.isep.esinf.struct.auxiliary.VehicleTrips;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 public class Search {
-    private TreeCluster tree;
+    private final TreeCluster tree;
 
 
     public Search(TreeCluster tree) {
@@ -21,6 +20,7 @@ public class Search {
 
     /**
      * Complexity: O(log(n)) + O(n) = O(n)
+     *
      * @param id
      * @return
      */
@@ -38,6 +38,7 @@ public class Search {
 
     /**
      * Complexity: 2*O(log(n)) = O(log(n))
+     *
      * @param id
      * @return
      */

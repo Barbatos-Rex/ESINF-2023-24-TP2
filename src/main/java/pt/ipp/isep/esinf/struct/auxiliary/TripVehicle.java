@@ -4,8 +4,8 @@ import pt.ipp.isep.esinf.domain.trip.Trip;
 import pt.ipp.isep.esinf.domain.vehicle.Vehicle;
 
 public class TripVehicle {
-    private Vehicle vehicle;
-    private Trip trip;
+    private final Vehicle vehicle;
+    private final Trip trip;
 
     public TripVehicle(Vehicle vehicle, Trip trip) {
         this.vehicle = vehicle;
@@ -23,10 +23,9 @@ public class TripVehicle {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(trip.toString()).append("\n");
-        sb.append("\n============================================\n");
-        sb.append(vehicle.toString()).append("\n");
-        return sb.toString();
+        String sb = trip.toString() + "\n" +
+                "\n============================================\n" +
+                vehicle.toString() + "\n";
+        return sb;
     }
 }

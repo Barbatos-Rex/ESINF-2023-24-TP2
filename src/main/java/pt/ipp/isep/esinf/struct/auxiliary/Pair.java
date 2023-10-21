@@ -3,8 +3,8 @@ package pt.ipp.isep.esinf.struct.auxiliary;
 import java.util.Objects;
 
 public class Pair<F, S> {
-    private F first;
-    private S second;
+    private final F first;
+    private final S second;
 
     public Pair(F first, S second) {
         this.first = first;

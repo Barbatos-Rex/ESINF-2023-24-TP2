@@ -3,14 +3,14 @@ package pt.ipp.isep.esinf.domain.vehicle;
 import java.util.Objects;
 
 public class Vehicle {
-    private int id;
-    private String type;
-    private String vClass;
-    private String engine;
-    private String tranmission;
-    private String wheels;
+    private final int id;
+    private final String type;
+    private final String vClass;
+    private final String engine;
+    private final String tranmission;
+    private final String wheels;
 
-    private String weight;
+    private final String weight;
 
 
     public Vehicle(int id, String type, String vClass, String engine, String tranmission, String wheels, String weight) {

@@ -17,6 +17,7 @@ public class SearchableTripBST extends SearchableBST<Trip, Integer> {
 
     /**
      * Complexity: O(1) + O(1) + O(nlog(n)) = O(nlog(n))
+     *
      * @param dayNum1
      * @param dayNum2
      * @param vehicleTree
@@ -67,12 +68,13 @@ public class SearchableTripBST extends SearchableBST<Trip, Integer> {
 
     /**
      * Complexity: O(1) + O(log(n))+O(nlog(n)) = O(nlog(n))
+     *
      * @param lower
      * @param higher
      * @return
      */
     public Map<Trip, TripStartEnd> obtainTripStartEnd(int lower, int higher) {
-      //O(1)
+        //O(1)
         if (lower > higher) {
             return obtainTripStartEnd(higher, lower);
         }
@@ -82,7 +84,7 @@ public class SearchableTripBST extends SearchableBST<Trip, Integer> {
         return obtainTripStartEnd(/*trips*/findAllThatMatch(t -> t.getId().getId() >= lower && t.getId().getId() <= higher));
     }
 
-    @Deprecated(since = "1.0.0",forRemoval = true)
+    @Deprecated(since = "1.0.0", forRemoval = true)
     private void findTripsByCodeBoundary(int lower, int higher, Set<Trip> result, SearchableNode<Trip, Integer> root) {
         if (root == null) {
             return;
@@ -128,6 +130,7 @@ public class SearchableTripBST extends SearchableBST<Trip, Integer> {
 
     /**
      * Complexity: O(1) + O(nlog(n)) + O(n) * (O(1)+O(log(n))) = O(nlog(n))
+     *
      * @param vehicles
      * @return
      */
@@ -169,6 +172,7 @@ public class SearchableTripBST extends SearchableBST<Trip, Integer> {
 
     /**
      * Complexity: O(nlog(n))
+     *
      * @return
      */
     public Trip2DTree generateCoordenate2DTree() {

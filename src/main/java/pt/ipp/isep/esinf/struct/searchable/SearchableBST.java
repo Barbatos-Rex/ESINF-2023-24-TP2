@@ -8,13 +8,22 @@ import java.util.function.Predicate;
 public class SearchableBST<N, I extends Comparable<I>>
         implements BST<I>, Searchable<N, I>, Iterable<N> {
 
+    private SearchableNode<N, I> root;
+
+
+    public SearchableBST(SearchableNode<N, I> root) {
+        this.root = root;
+    }
+
+    public SearchableBST() {
+    }
+
     @Override
     public Iterator<N> iterator() {
         List<N> result = new ArrayList<>();
         inOrderFiller(result, root);
         return result.iterator();
     }
-
 
     public void inOrderFiller(List<N> result, SearchableNode<N, I> root) {
         if (root == null) {
@@ -25,75 +34,9 @@ public class SearchableBST<N, I extends Comparable<I>>
         inOrderFiller(result, root.getRight());
     }
 
-    static class SearchableNode<N, I extends Comparable<I>> implements Comparable<SearchableNode<N, I>> {
-
-        private SearchableNode<N, I> left;
-        private I indexKey;
-        private N element;
-        private SearchableNode<N, I> right;
-
-        public SearchableNode(SearchableNode<N, I> left, I indexKey, N element, SearchableNode<N, I> right) {
-            this.left = left;
-            this.indexKey = indexKey;
-            this.element = element;
-            this.right = right;
-        }
-
-        public SearchableNode(I indexKey, N element) {
-            this.indexKey = indexKey;
-            this.element = element;
-        }
-
-        public void setLeft(SearchableNode<N, I> left) {
-            this.left = left;
-        }
-
-        public void setIndexKey(I indexKey) {
-            this.indexKey = indexKey;
-        }
-
-        public void setElement(N element) {
-            this.element = element;
-        }
-
-        public void setRight(SearchableNode<N, I> right) {
-            this.right = right;
-        }
-
-        public SearchableNode<N, I> getLeft() {
-            return left;
-        }
-
-        public I getIndexKey() {
-            return indexKey;
-        }
-
-        public N getElement() {
-            return element;
-        }
-
-        public SearchableNode<N, I> getRight() {
-            return right;
-        }
-
-        @Override
-        public int compareTo(SearchableNode<N, I> o) {
-            return indexKey.compareTo(o.indexKey);
-        }
-    }
-
-    public SearchableBST(SearchableNode<N, I> root) {
-        this.root = root;
-    }
-
-    public SearchableBST() {
-    }
-
     protected SearchableNode<N, I> getRootNode() {
         return root;
     }
-
-    private SearchableNode<N, I> root;
 
     @Override
     public Optional<I> root() {
@@ -114,7 +57,6 @@ public class SearchableBST<N, I extends Comparable<I>>
         }
         return Math.max(height(elem.getLeft()), height(elem.getRight())) + 1;
     }
-
 
     @Override
     public Iterable<I> inOrder() {
@@ -196,7 +138,6 @@ public class SearchableBST<N, I extends Comparable<I>>
         return size(root.getLeft()) + size(root.getRight()) + 1;
     }
 
-
     private void nodesByLevels(Map<Integer, Set<I>> result, SearchableNode<N, I> node, int level) {
         if (node == null) {
             return;
@@ -213,7 +154,6 @@ public class SearchableBST<N, I extends Comparable<I>>
     public Optional<N> search(I id) {
         return search(id, root);
     }
-
 
     public void insert(I id, N element) {
         if (root == null) {
@@ -240,7 +180,6 @@ public class SearchableBST<N, I extends Comparable<I>>
     public void remove(I key, N elem) {
         root = delete(new SearchableNode<>(key, elem), root);
     }
-
 
     private SearchableNode<N, I> delete(SearchableNode<N, I> element, SearchableNode<N, I> root) {
         if (root == null) {
@@ -276,7 +215,6 @@ public class SearchableBST<N, I extends Comparable<I>>
         return v;
     }
 
-
     private Optional<N> search(I id, SearchableNode<N, I> root) {
         if (root == null) {
             return Optional.empty();
@@ -309,6 +247,63 @@ public class SearchableBST<N, I extends Comparable<I>>
         }
         findAllThatMatch(predicate, set, node.getLeft());
         findAllThatMatch(predicate, set, node.getRight());
+    }
+
+    static class SearchableNode<N, I extends Comparable<I>> implements Comparable<SearchableNode<N, I>> {
+
+        private SearchableNode<N, I> left;
+        private I indexKey;
+        private N element;
+        private SearchableNode<N, I> right;
+
+        public SearchableNode(SearchableNode<N, I> left, I indexKey, N element, SearchableNode<N, I> right) {
+            this.left = left;
+            this.indexKey = indexKey;
+            this.element = element;
+            this.right = right;
+        }
+
+        public SearchableNode(I indexKey, N element) {
+            this.indexKey = indexKey;
+            this.element = element;
+        }
+
+        public SearchableNode<N, I> getLeft() {
+            return left;
+        }
+
+        public void setLeft(SearchableNode<N, I> left) {
+            this.left = left;
+        }
+
+        public I getIndexKey() {
+            return indexKey;
+        }
+
+        public void setIndexKey(I indexKey) {
+            this.indexKey = indexKey;
+        }
+
+        public N getElement() {
+            return element;
+        }
+
+        public void setElement(N element) {
+            this.element = element;
+        }
+
+        public SearchableNode<N, I> getRight() {
+            return right;
+        }
+
+        public void setRight(SearchableNode<N, I> right) {
+            this.right = right;
+        }
+
+        @Override
+        public int compareTo(SearchableNode<N, I> o) {
+            return indexKey.compareTo(o.indexKey);
+        }
     }
 
 }

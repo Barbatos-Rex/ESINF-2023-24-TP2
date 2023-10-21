@@ -7,9 +7,98 @@ import java.util.TreeSet;
 public class Trip implements Comparable<Trip> {
 
 
+    private final TripId id;
+    private final TripInfo info;
+    private final TreeSet<TripEntry> entries;
+
+    public Trip(TripId id, TreeSet<TripEntry> entries) {
+        info = new TripInfo();
+        this.id = id;
+        this.entries = entries;
+    }
+
+    public Trip(TripId id) {
+        this.id = id;
+        entries = new TreeSet<>();
+        info = new TripInfo();
+    }
+
     @Override
     public int compareTo(Trip o) {
         return Integer.compare(id.getId(), o.getId().getId());
+    }
+
+    public TripId getId() {
+        return id;
+    }
+
+    public TreeSet<TripEntry> getEntries() {
+        return entries;
+    }
+
+    public void addEntry(TripEntry entry) {
+        entries.add(entry);
+        info.alterStatus();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trip trip = (Trip) o;
+        return Objects.equals(id, trip.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return id.toString();
+    }
+
+    public TripInfo getInfo() {
+        if (!info.isUpToDate()) {
+            info.updateResults();
+        }
+        return info;
+    }
+
+    public double tripDistance() {
+        return entries.first().getCoordenates().distance(entries.last().getCoordenates());
+    }
+
+    public double tripRealDistance() {
+        double distance = 0;
+        TimeCoordenates last = null;
+        for (TripEntry entry : entries) {
+            if (last == null) {
+                last = entry.getCoordenates();
+                continue;
+            }
+
+            distance += last.distance(entry.getCoordenates());
+            last = entry.getCoordenates();
+        }
+        return distance;
+    }
+
+    public static class TripDistanceComparator implements Comparator<Trip> {
+
+        @Override
+        public int compare(Trip o1, Trip o2) {
+            return Double.compare(o1.tripDistance(), o2.tripDistance());
+        }
+    }
+
+    public static class TripRealDistanceComparator implements Comparator<Trip> {
+
+        @Override
+        public int compare(Trip o1, Trip o2) {
+            return -Double.compare(o1.tripRealDistance(), o2.tripRealDistance());
+        }
     }
 
     public class TripInfo {
@@ -152,100 +241,6 @@ public class Trip implements Comparable<Trip> {
 
         public void alterStatus() {
             upToDate = false;
-        }
-    }
-
-
-    private TripId id;
-
-    private TripInfo info;
-
-    private TreeSet<TripEntry> entries;
-
-    public Trip(TripId id, TreeSet<TripEntry> entries) {
-        info = new TripInfo();
-        this.id = id;
-        this.entries = entries;
-    }
-
-    public Trip(TripId id) {
-        this.id = id;
-        entries = new TreeSet<>();
-        info = new TripInfo();
-    }
-
-    public TripId getId() {
-        return id;
-    }
-
-    public TreeSet<TripEntry> getEntries() {
-        return entries;
-    }
-
-    public void addEntry(TripEntry entry) {
-        entries.add(entry);
-        info.alterStatus();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Trip trip = (Trip) o;
-        return Objects.equals(id, trip.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return id.toString();
-    }
-
-    public TripInfo getInfo() {
-        if (!info.isUpToDate()) {
-            info.updateResults();
-        }
-        return info;
-    }
-
-    public double tripDistance() {
-        return entries.first().getCoordenates().distance(entries.last().getCoordenates());
-    }
-
-    public double tripRealDistance() {
-        double distance = 0;
-        TimeCoordenates last = null;
-        for (TripEntry entry : entries) {
-            if (last == null) {
-                last = entry.getCoordenates();
-                continue;
-            }
-
-            distance += last.distance(entry.getCoordenates());
-            last = entry.getCoordenates();
-        }
-        return distance;
-    }
-
-
-    public static class TripDistanceComparator implements Comparator<Trip> {
-
-        @Override
-        public int compare(Trip o1, Trip o2) {
-            return Double.compare(o1.tripDistance(), o2.tripDistance());
-        }
-    }
-
-
-    public static class TripRealDistanceComparator implements Comparator<Trip>{
-
-        @Override
-        public int compare(Trip o1, Trip o2) {
-            return -Double.compare(o1.tripRealDistance(),o2.tripRealDistance());
         }
     }
 

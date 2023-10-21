@@ -5,18 +5,18 @@ import java.util.Objects;
 
 public class TimeCoordenates implements Comparator<TimeCoordenates> {
     private static final double R = 6371e3;
-    private String timeStamp;
-    private double latitude;
-    private double longitude;
-
-    public static TimeCoordenates genCoordWithoutTime(String latitude, String longitude){
-        return new TimeCoordenates("0",latitude,longitude);
-    }
+    private final String timeStamp;
+    private final double latitude;
+    private final double longitude;
 
     public TimeCoordenates(String timeStamp, String latitude, String longitude) {
         this.timeStamp = timeStamp;
         this.latitude = Double.parseDouble(latitude);
         this.longitude = Double.parseDouble(longitude);
+    }
+
+    public static TimeCoordenates genCoordWithoutTime(String latitude, String longitude) {
+        return new TimeCoordenates("0", latitude, longitude);
     }
 
     public String getTimeStamp() {
@@ -51,10 +51,9 @@ public class TimeCoordenates implements Comparator<TimeCoordenates> {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n").append("Latitude: ").append(latitude).append("\n").append("Longitude: ")
-                .append(longitude).append("\n").append("Instant [ms]: ").append(timeStamp).append("\n");
-        return sb.toString();
+        String sb = "\n" + "Latitude: " + latitude + "\n" + "Longitude: " +
+                longitude + "\n" + "Instant [ms]: " + timeStamp + "\n";
+        return sb;
     }
 
     public double distance(TimeCoordenates other) {

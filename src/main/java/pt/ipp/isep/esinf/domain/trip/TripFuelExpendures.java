@@ -3,16 +3,16 @@ package pt.ipp.isep.esinf.domain.trip;
 import java.util.Objects;
 
 public class TripFuelExpendures {
-    private String speed;
+    private final String speed;
 
-    private String maf;
+    private final String maf;
 
-    private String rpm;
+    private final String rpm;
 
-    private String load;
-    private String oat;
+    private final String load;
+    private final String oat;
 
-    private String fuelRate;
+    private final String fuelRate;
 
     public TripFuelExpendures(String speed, String maf, String rpm, String load, String oat, String fuelRate) {
         this.speed = speed;
