@@ -11,6 +11,26 @@ import java.util.TreeSet;
 public class Trip2DTree extends TwoDTree<Trip> {
 
 
+    public boolean contains(TimeCoordenates coordenates) {
+        return contains(coordenates, getRoot());
+    }
+
+    private boolean contains(TimeCoordenates coordenates, TwoDNode<Trip> root) {
+        if (root == null) {
+            return false;
+        }
+
+        if (Double.parseDouble(coordenates.getLatitude()) == root.getX() &&
+                Double.parseDouble(coordenates.getLongitude()) == root.getY()) {
+            return true;
+        }
+
+        return contains(coordenates, root.getLeft()) || contains(coordenates, root.getRight());
+
+
+    }
+
+
     /**
      * Complexity: O(1) + O(n) + O(1) + O(n) * O(log(n)) = O(nlog(n))
      * Complexity in debug mode: O(nlog^2(n))

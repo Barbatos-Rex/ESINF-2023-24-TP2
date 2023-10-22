@@ -2,7 +2,13 @@ package pt.ipp.isep.esinf.struct.simple;
 
 import pt.ipp.isep.esinf.struct.auxiliary.Pair;
 
-public class TwoDTree<E> {
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+public class TwoDTree<E> implements Iterable<TwoDTree.TwoDNode<E>> {
+    private int size = 0;
 
     private TwoDNode<E> root;
 
@@ -20,6 +26,7 @@ public class TwoDTree<E> {
 
     public void insert(double x, double y, E element) {
         root = insert(new TwoDNode<>(x, y, element), root, true);
+        size++;
     }
 
     public Pair<Double, Double> root() {
@@ -50,6 +57,45 @@ public class TwoDTree<E> {
             root.setRight(insert(node, root.getRight(), !isX));
         }
         return root;
+    }
+
+    public int size() {
+        return this.size;
+    }
+
+    @Override
+    public Iterator<TwoDNode<E>> iterator() {
+        return new TwoDTreeIterator(root);
+    }
+
+    private class TwoDTreeIterator implements Iterator<TwoDNode<E>> {
+        private ListIterator<TwoDNode<E>> elements;
+
+        public TwoDTreeIterator(TwoDNode<E> root) {
+            List<TwoDNode<E>> result = new ArrayList<>();
+            gen(result, root);
+            elements = result.listIterator();
+        }
+
+
+        private void gen(List<TwoDNode<E>> result, TwoDNode<E> root) {
+            if (root == null) {
+                return;
+            }
+            result.add(root);
+            gen(result, root.getLeft());
+            gen(result, root.getLeft());
+        }
+
+        @Override
+        public boolean hasNext() {
+            return elements.hasNext();
+        }
+
+        @Override
+        public TwoDNode<E> next() {
+            return elements.next();
+        }
     }
 
     public static class TwoDNode<E> {

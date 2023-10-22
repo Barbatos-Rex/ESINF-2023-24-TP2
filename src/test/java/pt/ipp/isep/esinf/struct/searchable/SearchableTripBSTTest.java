@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.esinf.TestUtils;
+import pt.ipp.isep.esinf.domain.trip.TimeCoordenates;
 import pt.ipp.isep.esinf.domain.trip.Trip;
 import pt.ipp.isep.esinf.domain.vehicle.Vehicle;
 import pt.ipp.isep.esinf.io.Importer;
@@ -12,6 +13,8 @@ import pt.ipp.isep.esinf.struct.MaxMinAverageOfTripByType;
 import pt.ipp.isep.esinf.struct.MaxMinAverageOfTripEntry;
 import pt.ipp.isep.esinf.struct.auxiliary.TreeCluster;
 import pt.ipp.isep.esinf.struct.auxiliary.TripStartEnd;
+import pt.ipp.isep.esinf.struct.simple.Trip2DTree;
+import pt.ipp.isep.esinf.struct.simple.TwoDTree;
 
 import java.util.*;
 
@@ -178,7 +181,33 @@ class SearchableTripBSTTest {
         }
     }
 
+//    @Test
+//    void generateCoordenate2DTreeHasAllTripsPointsTest() {
+//        Trip2DTree result = cluster.getTripTree().generateCoordenate2DTree();
+//        for (Integer tripId : tripIds) {
+//            Optional<Trip> opt = cluster.getTripTree().search(tripId);
+//            Trip t = opt.get();
+//            assertTrue(result.contains(t.getEntries().first().getCoordenates()));
+//            assertTrue(result.contains(t.getEntries().last().getCoordenates()));
+//        }
+//    }
+
     @Test
-    void generateCoordenate2DTree() {
+    void generateCoordenate2DTreeTripIsOnCorrectNodeTest() {
+        Trip2DTree result = cluster.getTripTree().generateCoordenate2DTree();
+        for (TwoDTree.TwoDNode<Trip> node : result) {
+            Trip t = node.getElement();
+            TimeCoordenates start = t.getEntries().first().getCoordenates();
+            TimeCoordenates end = t.getEntries().last().getCoordenates();
+            assertTrue(condition(start, end, node.getX(), node.getY()));
+        }
+    }
+
+    private boolean condition(TimeCoordenates start, TimeCoordenates end, double x, double y) {
+        double x1 = Double.parseDouble(start.getLatitude());
+        double y1 = Double.parseDouble(start.getLongitude());
+        double x2 = Double.parseDouble(end.getLatitude());
+        double y2 = Double.parseDouble(end.getLongitude());
+        return (x1 == x && y1 == y) || (x2 == x && y2 == y);
     }
 }
