@@ -11,6 +11,7 @@ import pt.ipp.isep.esinf.io.Importer;
 import pt.ipp.isep.esinf.struct.MaxMinAverageOfTripByType;
 import pt.ipp.isep.esinf.struct.MaxMinAverageOfTripEntry;
 import pt.ipp.isep.esinf.struct.auxiliary.TreeCluster;
+import pt.ipp.isep.esinf.struct.auxiliary.TripStartEnd;
 
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,14 @@ class SearchableTripBSTTest {
     @AfterEach
     void tearDown() {
         cluster = null;
+    }
+
+    @Test
+    void printContextEx2() {
+        System.out.println("<!--Execute exercise 2 (Between days: 150 - 156)-->");
+        MaxMinAverageOfTripByType ex2 = cluster.getTripTree().getMaxMinAvgBetween(150, 156, cluster.getVehicleTree());
+        ex2.updateValues();
+        System.out.println(ex2);
     }
 
     @Test
@@ -82,9 +91,36 @@ class SearchableTripBSTTest {
         }
     }
 
+    @Test
+    void printContextEx3() {
+        System.out.println("<!--Execute exercise 3 (Trips range: 1500 - 1555)-->");
+        Map<Trip, TripStartEnd> ex3 = cluster.getTripTree().obtainTripStartEnd(1500, 1555);
+        for (TripStartEnd value : ex3.values()) {
+            System.out.println(value);
+            System.out.println("----------------------------------------------------------");
+        }
+    }
 
     @Test
-    void obtainTripStartEnd() {
+    void obtainTripStartEndTripExistsTest() {
+        Map<Trip, TripStartEnd> result = cluster.getTripTree().obtainTripStartEnd(Integer.MIN_VALUE, Integer.MAX_VALUE);
+        for (Integer tripId : tripIds) {
+            Optional<Trip> opt = cluster.getTripTree().search(tripId);
+            assertTrue(opt.isPresent());
+            Trip trip = opt.get();
+            assertTrue(result.containsKey(trip));
+        }
+    }
+
+    @Test
+    void obtainTripStartEndStartAndEndEqualOnTripTest() {
+        Map<Trip, TripStartEnd> result = cluster.getTripTree().obtainTripStartEnd(Integer.MIN_VALUE, Integer.MAX_VALUE);
+        for (Integer tripId : tripIds) {
+            Optional<Trip> opt = cluster.getTripTree().search(tripId);
+            Trip trip = opt.get();
+            assertEquals(trip.getEntries().first().getCoordenates(), result.get(trip).obtainStartAndEnd().getFirst());
+            assertEquals(trip.getEntries().last().getCoordenates(), result.get(trip).obtainStartAndEnd().getSecond());
+        }
     }
 
     @Test
