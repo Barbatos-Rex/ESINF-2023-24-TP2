@@ -20,6 +20,12 @@ public class MaxMinAverageOfTripByType {
 
     //O(1)
     public void addEntry(Trip trip, String vehicleType) {
+        double day = Double.parseDouble(trip.getId().getDayNum());
+        if (!(day >= start) || !(day <= end)) {
+            return;
+        }
+
+
         if (!trips.containsKey(vehicleType)) {
             trips.put(vehicleType, new MaxMinAverageOfTripEntry(vehicleType));
         }
@@ -43,5 +49,15 @@ public class MaxMinAverageOfTripByType {
         return sb.toString();
     }
 
+    public double getStart() {
+        return start;
+    }
 
+    public double getEnd() {
+        return end;
+    }
+
+    public Map<String, MaxMinAverageOfTripEntry> getTrips() {
+        return trips;
+    }
 }

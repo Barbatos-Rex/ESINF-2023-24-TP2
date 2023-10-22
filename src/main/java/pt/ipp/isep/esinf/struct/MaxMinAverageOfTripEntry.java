@@ -132,4 +132,48 @@ public class MaxMinAverageOfTripEntry {
                 "Average: " + oatAvg + "\n" + "\n";
         return sb;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public Set<Trip> getTrips() {
+        return trips;
+    }
+
+    public double getSpeedMax() {
+        return speedMax;
+    }
+
+    public double getSpeedMin() {
+        return speedMin;
+    }
+
+    public double getSpeedAvg() {
+        return speedAvg;
+    }
+
+    public double getLoadMax() {
+        return loadMax;
+    }
+
+    public double getLoadMin() {
+        return loadMin;
+    }
+
+    public double getLoadAvg() {
+        return loadAvg;
+    }
+
+    public double getOatMax() {
+        return oatMax;
+    }
+
+    public double getOatMin() {
+        return oatMin;
+    }
+
+    public double getOatAvg() {
+        return oatAvg;
+    }
 }
