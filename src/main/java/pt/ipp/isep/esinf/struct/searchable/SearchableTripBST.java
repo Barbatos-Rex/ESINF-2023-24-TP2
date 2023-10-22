@@ -141,7 +141,11 @@ public class SearchableTripBST extends SearchableBST<Trip, Integer> {
                 //O(1)+O(log(n))
                 result.put(vehicle, tmp.get(vehicle).first());
             } catch (Exception e) {
-                System.out.println("[WARNING]: No trips found for VehicleId " + vehicle);
+                if (Boolean.parseBoolean(System.getProperty("Debug", "false"))) {
+                    System.out.println("[WARNING]: No trips found for VehicleId " + vehicle);
+                    System.out.println("Adding null to trip");
+                }
+                result.put(vehicle, null);
             }
         }
         return result;

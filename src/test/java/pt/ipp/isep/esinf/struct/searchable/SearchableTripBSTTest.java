@@ -13,22 +13,22 @@ import pt.ipp.isep.esinf.struct.MaxMinAverageOfTripEntry;
 import pt.ipp.isep.esinf.struct.auxiliary.TreeCluster;
 import pt.ipp.isep.esinf.struct.auxiliary.TripStartEnd;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SearchableTripBSTTest {
 
     private static List<Integer> tripIds;
+
+    private static List<Integer> vehicleIds;
 
     private TreeCluster cluster;
 
     @BeforeAll
     static void initialize() {
         tripIds = TestUtils.readTripsIds();
+        vehicleIds = TestUtils.readVehicleIds();
     }
 
     @BeforeEach
@@ -124,11 +124,58 @@ class SearchableTripBSTTest {
     }
 
     @Test
-    void findLongestTripByVehicle() {
+    void printContextEx4() {
+        System.out.println("<!--Execute exercise 4 (Vehicles searched: 130 , 131, 132, 550 and 554)-->");
+        Map<Integer, Trip> ex4 = cluster.getTripTree().findLongestTripByVehicleIds(Set.of(130, 131, 132, 550, 554));
+        System.out.println();
+        for (Map.Entry<Integer, Trip> integerTripEntry : ex4.entrySet()) {
+            System.out.println();
+            System.out.println("VehicleId: " + integerTripEntry.getKey());
+            if (integerTripEntry.getValue() != null) {
+                System.out.println("Longest Trip: " + integerTripEntry.getValue().getId().getId());
+                System.out.println("Trip Distance: " + String.format("%.3f", integerTripEntry.getValue().tripDistance()) + " km");
+            }
+            System.out.println();
+            System.out.println("//////////////////////////////////////////////////////////////////////////////");
+        }
     }
 
     @Test
-    void findLongestTripByVehicleIds() {
+    void findLongestTripByVehicleVehicleIdsMatchTest() {
+        Map<Integer, Trip> result = cluster.getTripTree().findLongestTripByVehicleIds(new HashSet<>(vehicleIds));
+        for (Map.Entry<Integer, Trip> entry : result.entrySet()) {
+            if (entry.getValue() == null) {
+                continue;
+            }
+            assertEquals(entry.getKey(), entry.getValue().getId().getVehicle());
+        }
+    }
+
+    @Test
+    void findLongestTripByVehicleHasAtLeastOneTripTest() {
+        Map<Integer, Trip> result = cluster.getTripTree().findLongestTripByVehicleIds(new HashSet<>(vehicleIds));
+        for (Integer vehicleId : result.keySet()) {
+            Set<Trip> trips = cluster.getTripTree().findAllThatMatch(t -> t.getId().getVehicle() == vehicleId);
+            if (result.get(vehicleId) == null) {
+                assertEquals(0, trips.size());
+                continue;
+            }
+            assertFalse(trips.isEmpty());
+        }
+    }
+
+    @Test
+    void findLongestTripByVehicleIsLongestTripTest() {
+        Map<Integer, Trip> result = cluster.getTripTree().findLongestTripByVehicleIds(new HashSet<>(vehicleIds));
+        for (Integer vehicleId : result.keySet()) {
+            Set<Trip> trips = cluster.getTripTree().findAllThatMatch(t -> t.getId().getVehicle() == vehicleId);
+            if (result.get(vehicleId) == null) {
+                continue;
+            }
+            TreeSet<Trip> ordered = new TreeSet<>(new Trip.TripDistanceComparator());
+            ordered.addAll(trips);
+            assertEquals(ordered.first(), result.get(vehicleId));
+        }
     }
 
     @Test

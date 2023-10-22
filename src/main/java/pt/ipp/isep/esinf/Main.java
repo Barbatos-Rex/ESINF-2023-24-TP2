@@ -82,15 +82,19 @@ public class Main {
         for (Map.Entry<Integer, Trip> integerTripEntry : ex4.entrySet()) {
             System.out.println();
             System.out.println("VehicleId: " + integerTripEntry.getKey());
-            System.out.println("Longest Trip: " + integerTripEntry.getValue().getId().getId());
-            System.out.println("Trip Distance: " + String.format("%.3f", integerTripEntry.getValue().tripDistance()) + " km");
+            if (integerTripEntry.getValue() != null) {
+                System.out.println("Longest Trip: " + integerTripEntry.getValue().getId().getId());
+                System.out.println("Trip Distance: " + String.format("%.3f", integerTripEntry.getValue().tripDistance()) + " km");
+            }
             System.out.println();
             System.out.println("//////////////////////////////////////////////////////////////////////////////");
 
             pw.println();
             pw.println("VehicleId: " + integerTripEntry.getKey());
-            pw.println("Longest Trip: " + integerTripEntry.getValue().getId().getId());
-            pw.println("Trip Distance: " + String.format("%.3f", integerTripEntry.getValue().tripDistance()) + " km");
+            if (integerTripEntry.getValue() != null) {
+                pw.println("Longest Trip: " + integerTripEntry.getValue().getId().getId());
+                pw.println("Trip Distance: " + String.format("%.3f", integerTripEntry.getValue().tripDistance()) + " km");
+            }
             pw.println();
             pw.println("//////////////////////////////////////////////////////////////////////////////");
         }
