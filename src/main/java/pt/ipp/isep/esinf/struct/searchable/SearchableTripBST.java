@@ -106,12 +106,7 @@ public class SearchableTripBST extends SearchableBST<Trip, Integer> {
 
     @Deprecated(since = "1.0.0")
     public Map<Vehicle, Trip> findLongestTripByVehicle(Set<Vehicle> vehicles) {
-        Set<Integer> setOfIds = new HashSet<>();
         Map<Vehicle, Trip> result = new HashMap<>();
-        //Could have used Java Streams API, but you know, mestrado is not licenciatura
-        for (Vehicle vehicle : vehicles) {
-            setOfIds.add(vehicle.getId());
-        }
         Map<Integer, TreeSet<Trip>> tmp = new HashMap<>();
         findAllTripsByVehicle(tmp, getRootNode());
         for (Vehicle vehicle : vehicles) {

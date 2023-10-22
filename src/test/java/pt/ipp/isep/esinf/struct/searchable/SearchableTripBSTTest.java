@@ -124,10 +124,6 @@ class SearchableTripBSTTest {
     }
 
     @Test
-    void testObtainTripStartEnd() {
-    }
-
-    @Test
     void findLongestTripByVehicle() {
     }
 
