@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class TwoDTree<E> implements Iterable<TwoDTree.TwoDNode<E>> {
+public class TwoDTree<E extends Comparable<E>> implements Iterable<TwoDTree.TwoDNode<E>> {
     private int size = 0;
 
     private TwoDNode<E> root;

@@ -9,6 +9,7 @@ import pt.ipp.isep.esinf.struct.auxiliary.TreeCluster;
 import pt.ipp.isep.esinf.struct.auxiliary.TripStartEnd;
 import pt.ipp.isep.esinf.struct.auxiliary.TripVehicle;
 import pt.ipp.isep.esinf.struct.auxiliary.VehicleTrips;
+import pt.ipp.isep.esinf.struct.simple.Trip2DTree;
 
 import java.io.File;
 import java.io.IOException;
@@ -101,8 +102,10 @@ public class Main {
         System.out.println("\n");
         pw.println("\n");
 
+        Trip2DTree twoDTree = result.getTripTree().generateCoordenate2DTree();
+
         pw.println("<!--Execute exercise 5 ((42.24882,-83.76743139) to (43.25883,-84.76743125))-->");
-        Trip ex5 = result.getTripTree().generateCoordenate2DTree().obtainClosestCoordenatesToOriginDestination(
+        Trip ex5 = twoDTree.obtainClosestCoordenatesToOriginDestination(
                 TimeCoordenates.genCoordWithoutTime("42.24882", "-83.76743139"),
                 TimeCoordenates.genCoordWithoutTime("43.25883", "-84.76743125"));
         System.out.println("Trip: " + ex5);
@@ -117,7 +120,7 @@ public class Main {
 
 
         pw.println("<!--Execute exercise 5 ((42.24882,-83.76743139) to (43.25883,-84.76743125) top 10 longest trips)-->");
-        Set<Trip> ex6 = result.getTripTree().generateCoordenate2DTree().topNLongestTripsBetweenInArea(
+        Set<Trip> ex6 = twoDTree.topNLongestTripsBetweenInArea(
                 TimeCoordenates.genCoordWithoutTime("42.24882", "-83.76743139"), TimeCoordenates.genCoordWithoutTime("43.25883", "-84.76743125"), 10);
 
 
