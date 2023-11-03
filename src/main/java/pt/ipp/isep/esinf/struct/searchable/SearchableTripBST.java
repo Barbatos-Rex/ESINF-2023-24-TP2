@@ -12,8 +12,8 @@ import java.util.*;
 public class SearchableTripBST extends SearchableBST<Trip, Integer> {
 
     //Can be achived by in Order Traversal, however, recursive is more impressive, it will (might) not blow up, and I like to do this overcomplexity just for fun!
-    //But using Order traversal will be slower because it will loop twice for each node instead of tapping them directlly, but the complexity is the same.
-    //Any methods like this are just for this are just for avoiding lopping twice; how wonderfull.
+    //But using Order traversal will be slower because it will loop twice for each node instead of tapping them directly, but the complexity is the same.
+    //Any methods like this are just for this are just for avoiding lopping twice; how wonderful.
 
     /**
      * Complexity: O(1) + O(1) + O(nlog(n)) = O(nlog(n))
